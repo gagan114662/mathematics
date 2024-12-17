@@ -1,0 +1,10 @@
+README.md
+pyproject.toml
+algo_trading.egg-info/PKG-INFO
+algo_trading.egg-info/SOURCES.txt
+algo_trading.egg-info/dependency_links.txt
+algo_trading.egg-info/requires.txt
+algo_trading.egg-info/top_level.txt
+src/__init__.py
+src/main.py
+src/portfolio.py

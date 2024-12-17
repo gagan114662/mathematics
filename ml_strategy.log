@@ -1,0 +1,1719 @@
+2024-12-15 20:46:01,846 - __main__ - INFO - Initializing ML Strategy...
+2024-12-15 20:46:01,893 - src.strategies.ml_strategy - INFO - GPU devices found: [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]
+2024-12-15 20:46:01,894 - src.strategies.ml_strategy - INFO - Memory growth enabled for GPU: PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')
+2024-12-15 20:46:01,894 - src.strategies.ml_strategy - INFO - Components initialized successfully
+2024-12-15 20:46:02,457 - src.strategies.ml_strategy - INFO - Created LSTM model with input shape: (60, 41)
+2024-12-15 20:46:02,457 - src.strategies.ml_strategy - INFO - ML Strategy initialized successfully
+2024-12-15 20:46:02,457 - src.strategies.ml_strategy - INFO - Running ML strategy...
+2024-12-15 20:46:02,457 - src.data.data_fetcher - INFO - Fetching data for AAPL
+2024-12-15 20:46:03,111 - src.data.data_preparation - WARNING - Dropping features with too many missing values: Index(['volatility_ratio_5d', 'volatility_ratio_10d', 'volatility_ratio_20d'], dtype='object')
+2024-12-15 20:46:03,146 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:46:03,146 - src.features.feature_engineer - INFO - Final data shape: (667, 41)
+2024-12-15 20:46:03,149 - src.strategies.ml_strategy - INFO - Prepared features with shape: (667, 41)
+2024-12-15 20:46:03,153 - src.strategies.ml_strategy - WARNING - Found NaN values in training data. Filling with 0...
+2024-12-15 20:46:04,484 - src.strategies.ml_strategy - ERROR - Error during Keras model training: Graph execution error:
+
+Detected at node sequential_1/lstm_1/CudnnRNNV3 defined at (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 283, in <module>
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 260, in main
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 893, in run
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 585, in train
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 463, in _fit_model
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 392, in _fit_keras
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 368, in fit
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 216, in function
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 129, in multi_step_on_iterator
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 110, in one_step_on_data
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 56, in train_step
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/layer.py", line 899, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/ops/operation.py", line 46, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 156, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/models/sequential.py", line 213, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/models/functional.py", line 182, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/ops/function.py", line 171, in _run_through_graph
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/models/functional.py", line 632, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/layer.py", line 899, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/ops/operation.py", line 46, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 156, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/rnn/lstm.py", line 570, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/rnn/rnn.py", line 402, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/rnn/lstm.py", line 537, in inner_loop
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/rnn.py", line 841, in lstm
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/rnn.py", line 933, in _cudnn_lstm
+
+Dnn is not supported
+	 [[{{node sequential_1/lstm_1/CudnnRNNV3}}]] [Op:__inference_multi_step_on_iterator_3534]
+2024-12-15 20:46:04,484 - src.strategies.ml_strategy - ERROR - Error fitting model Sequential: Graph execution error:
+
+Detected at node sequential_1/lstm_1/CudnnRNNV3 defined at (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 283, in <module>
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 260, in main
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 893, in run
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 585, in train
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 463, in _fit_model
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 392, in _fit_keras
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 368, in fit
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 216, in function
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 129, in multi_step_on_iterator
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 110, in one_step_on_data
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 56, in train_step
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/layer.py", line 899, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/ops/operation.py", line 46, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 156, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/models/sequential.py", line 213, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/models/functional.py", line 182, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/ops/function.py", line 171, in _run_through_graph
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/models/functional.py", line 632, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/layer.py", line 899, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/ops/operation.py", line 46, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 156, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/rnn/lstm.py", line 570, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/rnn/rnn.py", line 402, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/rnn/lstm.py", line 537, in inner_loop
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/rnn.py", line 841, in lstm
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/rnn.py", line 933, in _cudnn_lstm
+
+Dnn is not supported
+	 [[{{node sequential_1/lstm_1/CudnnRNNV3}}]] [Op:__inference_multi_step_on_iterator_3534]
+2024-12-15 20:46:04,484 - src.strategies.ml_strategy - ERROR - Error in training: Graph execution error:
+
+Detected at node sequential_1/lstm_1/CudnnRNNV3 defined at (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 283, in <module>
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 260, in main
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 893, in run
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 585, in train
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 463, in _fit_model
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 392, in _fit_keras
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 368, in fit
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 216, in function
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 129, in multi_step_on_iterator
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 110, in one_step_on_data
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 56, in train_step
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/layer.py", line 899, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/ops/operation.py", line 46, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 156, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/models/sequential.py", line 213, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/models/functional.py", line 182, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/ops/function.py", line 171, in _run_through_graph
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/models/functional.py", line 632, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/layer.py", line 899, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/ops/operation.py", line 46, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 156, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/rnn/lstm.py", line 570, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/rnn/rnn.py", line 402, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/rnn/lstm.py", line 537, in inner_loop
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/rnn.py", line 841, in lstm
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/rnn.py", line 933, in _cudnn_lstm
+
+Dnn is not supported
+	 [[{{node sequential_1/lstm_1/CudnnRNNV3}}]] [Op:__inference_multi_step_on_iterator_3534]
+2024-12-15 20:46:04,484 - src.strategies.ml_strategy - ERROR - Error running strategy: Graph execution error:
+
+Detected at node sequential_1/lstm_1/CudnnRNNV3 defined at (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 283, in <module>
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 260, in main
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 893, in run
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 585, in train
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 463, in _fit_model
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 392, in _fit_keras
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 368, in fit
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 216, in function
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 129, in multi_step_on_iterator
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 110, in one_step_on_data
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 56, in train_step
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/layer.py", line 899, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/ops/operation.py", line 46, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 156, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/models/sequential.py", line 213, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/models/functional.py", line 182, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/ops/function.py", line 171, in _run_through_graph
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/models/functional.py", line 632, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/layer.py", line 899, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/ops/operation.py", line 46, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 156, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/rnn/lstm.py", line 570, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/rnn/rnn.py", line 402, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/rnn/lstm.py", line 537, in inner_loop
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/rnn.py", line 841, in lstm
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/rnn.py", line 933, in _cudnn_lstm
+
+Dnn is not supported
+	 [[{{node sequential_1/lstm_1/CudnnRNNV3}}]] [Op:__inference_multi_step_on_iterator_3534]
+2024-12-15 20:46:04,484 - __main__ - ERROR - Error running strategy: Graph execution error:
+
+Detected at node sequential_1/lstm_1/CudnnRNNV3 defined at (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 283, in <module>
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 260, in main
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 893, in run
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 585, in train
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 463, in _fit_model
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 392, in _fit_keras
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 368, in fit
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 216, in function
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 129, in multi_step_on_iterator
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 110, in one_step_on_data
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 56, in train_step
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/layer.py", line 899, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/ops/operation.py", line 46, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 156, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/models/sequential.py", line 213, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/models/functional.py", line 182, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/ops/function.py", line 171, in _run_through_graph
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/models/functional.py", line 632, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/layer.py", line 899, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/ops/operation.py", line 46, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 156, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/rnn/lstm.py", line 570, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/rnn/rnn.py", line 402, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/rnn/lstm.py", line 537, in inner_loop
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/rnn.py", line 841, in lstm
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/rnn.py", line 933, in _cudnn_lstm
+
+Dnn is not supported
+	 [[{{node sequential_1/lstm_1/CudnnRNNV3}}]] [Op:__inference_multi_step_on_iterator_3534]
+2024-12-15 20:46:39,744 - __main__ - INFO - Initializing ML Strategy...
+2024-12-15 20:46:39,748 - src.strategies.ml_strategy - WARNING - No GPU devices found, using CPU
+2024-12-15 20:46:39,749 - src.strategies.ml_strategy - INFO - Components initialized successfully
+2024-12-15 20:46:39,822 - src.strategies.ml_strategy - INFO - Created LSTM model with input shape: (60, 41)
+2024-12-15 20:46:39,822 - src.strategies.ml_strategy - INFO - ML Strategy initialized successfully
+2024-12-15 20:46:39,822 - src.strategies.ml_strategy - INFO - Running ML strategy...
+2024-12-15 20:46:39,823 - src.data.data_fetcher - INFO - Fetching data for AAPL
+2024-12-15 20:46:40,246 - src.data.data_preparation - WARNING - Dropping features with too many missing values: Index(['volatility_ratio_5d', 'volatility_ratio_10d', 'volatility_ratio_20d'], dtype='object')
+2024-12-15 20:46:40,284 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:46:40,284 - src.features.feature_engineer - INFO - Final data shape: (667, 41)
+2024-12-15 20:46:40,287 - src.strategies.ml_strategy - INFO - Prepared features with shape: (667, 41)
+2024-12-15 20:46:40,291 - src.strategies.ml_strategy - WARNING - Found NaN values in training data. Filling with 0...
+2024-12-15 20:46:52,871 - src.strategies.ml_strategy - INFO - Training completed - Final loss: 3.0377
+2024-12-15 20:46:52,871 - src.strategies.ml_strategy - INFO - Training completed - Final loss: 3.0377
+2024-12-15 20:46:52,871 - src.strategies.ml_strategy - INFO - Starting backtest...
+2024-12-15 20:46:52,898 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:46:52,898 - src.features.feature_engineer - INFO - Final data shape: (75, 41)
+2024-12-15 20:46:52,900 - src.strategies.ml_strategy - INFO - Prepared features with shape: (75, 41)
+2024-12-15 20:46:52,921 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:46:52,921 - src.features.feature_engineer - INFO - Final data shape: (75, 41)
+2024-12-15 20:46:52,923 - src.strategies.ml_strategy - INFO - Prepared features with shape: (75, 41)
+2024-12-15 20:46:53,206 - src.strategies.ml_strategy - INFO - Generated predictions with shape: (15, 1)
+2024-12-15 20:46:53,206 - src.strategies.ml_strategy - INFO - Generated predictions with shape: (15,)
+2024-12-15 20:46:53,208 - src.strategies.ml_strategy - INFO - Backtest Results:
+2024-12-15 20:46:53,208 - src.strategies.ml_strategy - INFO - total_return: 0.0000
+2024-12-15 20:46:53,208 - src.strategies.ml_strategy - INFO - sharpe_ratio: 0.0000
+2024-12-15 20:46:53,208 - src.strategies.ml_strategy - INFO - max_drawdown: 0.0000
+2024-12-15 20:46:53,208 - src.strategies.ml_strategy - INFO - win_rate: 0.0000
+2024-12-15 20:46:53,208 - src.strategies.ml_strategy - INFO - profit_factor: 0.0000
+2024-12-15 20:46:53,245 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:46:53,245 - src.features.feature_engineer - INFO - Final data shape: (74, 41)
+2024-12-15 20:46:53,247 - src.strategies.ml_strategy - INFO - Prepared features with shape: (74, 41)
+2024-12-15 20:46:53,270 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:46:53,270 - src.features.feature_engineer - INFO - Final data shape: (74, 41)
+2024-12-15 20:46:53,272 - src.strategies.ml_strategy - INFO - Prepared features with shape: (74, 41)
+2024-12-15 20:46:53,576 - src.strategies.ml_strategy - INFO - Generated predictions with shape: (14, 1)
+2024-12-15 20:46:53,577 - __main__ - ERROR - Error in evaluate_predictions: Found input variables with inconsistent numbers of samples: [73, 13]
+Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 63, in evaluate_predictions
+    mse = mean_squared_error(actual_returns, predicted_returns)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/metrics/_regression.py", line 506, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/metrics/_regression.py", line 111, in _check_reg_targets
+    check_consistent_length(y_true, y_pred)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/validation.py", line 457, in check_consistent_length
+    raise ValueError(
+ValueError: Found input variables with inconsistent numbers of samples: [73, 13]
+2024-12-15 20:46:53,579 - __main__ - ERROR - Error running strategy: Found input variables with inconsistent numbers of samples: [73, 13]
+2024-12-15 20:48:33,646 - __main__ - INFO - Initializing ML Strategy...
+2024-12-15 20:48:33,651 - src.strategies.ml_strategy - WARNING - No GPU devices found, using CPU
+2024-12-15 20:48:33,651 - src.strategies.ml_strategy - INFO - Components initialized successfully
+2024-12-15 20:48:33,721 - src.strategies.ml_strategy - INFO - Created LSTM model with input shape: (60, 41)
+2024-12-15 20:48:33,721 - src.strategies.ml_strategy - INFO - ML Strategy initialized successfully
+2024-12-15 20:48:33,721 - src.strategies.ml_strategy - INFO - Running ML strategy...
+2024-12-15 20:48:33,721 - src.data.data_fetcher - INFO - Fetching data for AAPL
+2024-12-15 20:48:34,409 - src.data.data_preparation - WARNING - Dropping features with too many missing values: Index(['volatility_ratio_5d', 'volatility_ratio_10d', 'volatility_ratio_20d'], dtype='object')
+2024-12-15 20:48:34,445 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:48:34,445 - src.features.feature_engineer - INFO - Final data shape: (667, 41)
+2024-12-15 20:48:34,448 - src.strategies.ml_strategy - INFO - Prepared features with shape: (667, 41)
+2024-12-15 20:48:34,452 - src.strategies.ml_strategy - WARNING - Found NaN values in training data. Filling with 0...
+2024-12-15 20:48:45,088 - src.strategies.ml_strategy - INFO - Training completed - Final loss: 3.2084
+2024-12-15 20:48:45,088 - src.strategies.ml_strategy - INFO - Training completed - Final loss: 3.2084
+2024-12-15 20:48:45,088 - src.strategies.ml_strategy - INFO - Starting backtest...
+2024-12-15 20:48:45,116 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:48:45,117 - src.features.feature_engineer - INFO - Final data shape: (75, 41)
+2024-12-15 20:48:45,119 - src.strategies.ml_strategy - INFO - Prepared features with shape: (75, 41)
+2024-12-15 20:48:45,143 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:48:45,143 - src.features.feature_engineer - INFO - Final data shape: (75, 41)
+2024-12-15 20:48:45,145 - src.strategies.ml_strategy - INFO - Prepared features with shape: (75, 41)
+2024-12-15 20:48:45,419 - src.strategies.ml_strategy - INFO - Generated predictions with shape: (15, 1)
+2024-12-15 20:48:45,420 - src.strategies.ml_strategy - ERROR - Error in backtest: 'MLStrategyConfig' object has no attribute 'strategy'
+Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 672, in backtest
+    if predictions[i] > self.config.strategy.entry_threshold:
+AttributeError: 'MLStrategyConfig' object has no attribute 'strategy'
+2024-12-15 20:48:45,463 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:48:45,463 - src.features.feature_engineer - INFO - Final data shape: (74, 41)
+2024-12-15 20:48:45,465 - src.strategies.ml_strategy - INFO - Prepared features with shape: (74, 41)
+2024-12-15 20:48:45,491 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:48:45,491 - src.features.feature_engineer - INFO - Final data shape: (74, 41)
+2024-12-15 20:48:45,493 - src.strategies.ml_strategy - INFO - Prepared features with shape: (74, 41)
+2024-12-15 20:48:45,789 - src.strategies.ml_strategy - INFO - Generated predictions with shape: (14, 1)
+2024-12-15 20:48:45,790 - __main__ - ERROR - Error in evaluate_predictions: Found input variables with inconsistent numbers of samples: [73, 13]
+Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 63, in evaluate_predictions
+    mse = mean_squared_error(actual_returns, predicted_returns)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/metrics/_regression.py", line 506, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/metrics/_regression.py", line 111, in _check_reg_targets
+    check_consistent_length(y_true, y_pred)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/validation.py", line 457, in check_consistent_length
+    raise ValueError(
+ValueError: Found input variables with inconsistent numbers of samples: [73, 13]
+2024-12-15 20:48:45,791 - __main__ - ERROR - Error running strategy: Found input variables with inconsistent numbers of samples: [73, 13]
+2024-12-15 20:50:59,247 - __main__ - INFO - Initializing ML Strategy...
+2024-12-15 20:50:59,252 - src.strategies.ml_strategy - WARNING - No GPU devices found, using CPU
+2024-12-15 20:50:59,252 - src.strategies.ml_strategy - INFO - Components initialized successfully
+2024-12-15 20:50:59,322 - src.strategies.ml_strategy - INFO - Created LSTM model with input shape: (60, 41)
+2024-12-15 20:50:59,322 - src.strategies.ml_strategy - INFO - ML Strategy initialized successfully
+2024-12-15 20:50:59,322 - src.strategies.ml_strategy - INFO - Running ML strategy...
+2024-12-15 20:50:59,322 - src.data.data_fetcher - INFO - Fetching data for AAPL
+2024-12-15 20:50:59,851 - src.data.data_preparation - WARNING - Dropping features with too many missing values: Index(['volatility_ratio_5d', 'volatility_ratio_10d', 'volatility_ratio_20d'], dtype='object')
+2024-12-15 20:50:59,889 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:50:59,889 - src.features.feature_engineer - INFO - Final data shape: (667, 41)
+2024-12-15 20:50:59,891 - src.strategies.ml_strategy - INFO - Prepared features with shape: (667, 41)
+2024-12-15 20:50:59,895 - src.strategies.ml_strategy - WARNING - Found NaN values in training data. Filling with 0...
+2024-12-15 20:51:14,841 - src.strategies.ml_strategy - INFO - Training completed - Final loss: 3.0498
+2024-12-15 20:51:14,841 - src.strategies.ml_strategy - INFO - Training completed - Final loss: 3.0498
+2024-12-15 20:51:14,841 - src.strategies.ml_strategy - INFO - Starting backtest...
+2024-12-15 20:51:14,867 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:51:14,867 - src.features.feature_engineer - INFO - Final data shape: (75, 41)
+2024-12-15 20:51:14,869 - src.strategies.ml_strategy - INFO - Prepared features with shape: (75, 41)
+2024-12-15 20:51:14,892 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:51:14,892 - src.features.feature_engineer - INFO - Final data shape: (75, 41)
+2024-12-15 20:51:14,894 - src.strategies.ml_strategy - INFO - Prepared features with shape: (75, 41)
+2024-12-15 20:51:15,192 - src.strategies.ml_strategy - INFO - Generated predictions with shape: (15, 1)
+2024-12-15 20:51:15,192 - src.strategies.ml_strategy - ERROR - Error in backtest: 'MLStrategyConfig' object has no attribute 'strategy'
+Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 672, in backtest
+    if predictions[i] > self.config.strategy.entry_threshold:
+AttributeError: 'MLStrategyConfig' object has no attribute 'strategy'
+2024-12-15 20:51:15,228 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:51:15,228 - src.features.feature_engineer - INFO - Final data shape: (74, 41)
+2024-12-15 20:51:15,230 - src.strategies.ml_strategy - INFO - Prepared features with shape: (74, 41)
+2024-12-15 20:51:15,252 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:51:15,252 - src.features.feature_engineer - INFO - Final data shape: (74, 41)
+2024-12-15 20:51:15,254 - src.strategies.ml_strategy - INFO - Prepared features with shape: (74, 41)
+2024-12-15 20:51:15,554 - src.strategies.ml_strategy - INFO - Generated predictions with shape: (14, 1)
+2024-12-15 20:51:15,555 - __main__ - ERROR - Error in evaluate_predictions: Length of values (14) does not match length of index (74)
+2024-12-15 20:51:15,555 - __main__ - ERROR - Error running strategy: Length of values (14) does not match length of index (74)
+2024-12-15 20:51:57,427 - __main__ - INFO - Initializing ML Strategy...
+2024-12-15 20:51:57,432 - src.strategies.ml_strategy - WARNING - No GPU devices found, using CPU
+2024-12-15 20:51:57,432 - src.strategies.ml_strategy - INFO - Components initialized successfully
+2024-12-15 20:51:57,502 - src.strategies.ml_strategy - INFO - Created LSTM model with input shape: (60, 41)
+2024-12-15 20:51:57,502 - src.strategies.ml_strategy - INFO - ML Strategy initialized successfully
+2024-12-15 20:51:57,502 - src.strategies.ml_strategy - INFO - Running ML strategy...
+2024-12-15 20:51:57,502 - src.data.data_fetcher - INFO - Fetching data for AAPL
+2024-12-15 20:51:58,301 - src.data.data_preparation - WARNING - Dropping features with too many missing values: Index(['volatility_ratio_5d', 'volatility_ratio_10d', 'volatility_ratio_20d'], dtype='object')
+2024-12-15 20:51:58,337 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:51:58,337 - src.features.feature_engineer - INFO - Final data shape: (667, 41)
+2024-12-15 20:51:58,340 - src.strategies.ml_strategy - INFO - Prepared features with shape: (667, 41)
+2024-12-15 20:51:58,344 - src.strategies.ml_strategy - WARNING - Found NaN values in training data. Filling with 0...
+2024-12-15 20:52:12,331 - src.strategies.ml_strategy - INFO - Training completed - Final loss: 3.1306
+2024-12-15 20:52:12,331 - src.strategies.ml_strategy - INFO - Training completed - Final loss: 3.1306
+2024-12-15 20:52:12,332 - src.strategies.ml_strategy - INFO - Starting backtest...
+2024-12-15 20:52:12,359 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:52:12,359 - src.features.feature_engineer - INFO - Final data shape: (75, 41)
+2024-12-15 20:52:12,361 - src.strategies.ml_strategy - INFO - Prepared features with shape: (75, 41)
+2024-12-15 20:52:12,385 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:52:12,385 - src.features.feature_engineer - INFO - Final data shape: (75, 41)
+2024-12-15 20:52:12,388 - src.strategies.ml_strategy - INFO - Prepared features with shape: (75, 41)
+2024-12-15 20:52:12,900 - src.strategies.ml_strategy - INFO - Generated predictions with shape: (75, 1)
+2024-12-15 20:52:12,900 - src.strategies.ml_strategy - ERROR - Error in backtest: 'MLStrategyConfig' object has no attribute 'strategy'
+Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 672, in backtest
+    if predictions[i] > self.config.strategy.entry_threshold:
+AttributeError: 'MLStrategyConfig' object has no attribute 'strategy'
+2024-12-15 20:52:12,942 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:52:12,942 - src.features.feature_engineer - INFO - Final data shape: (74, 41)
+2024-12-15 20:52:12,944 - src.strategies.ml_strategy - INFO - Prepared features with shape: (74, 41)
+2024-12-15 20:52:12,968 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:52:12,968 - src.features.feature_engineer - INFO - Final data shape: (74, 41)
+2024-12-15 20:52:12,969 - src.strategies.ml_strategy - INFO - Prepared features with shape: (74, 41)
+2024-12-15 20:52:13,160 - src.strategies.ml_strategy - INFO - Generated predictions with shape: (74, 1)
+2024-12-15 20:52:13,166 - __main__ - INFO - Strategy execution completed successfully
+2024-12-15 20:53:04,533 - __main__ - INFO - Initializing ML Strategy...
+2024-12-15 20:53:04,538 - src.strategies.ml_strategy - WARNING - No GPU devices found, using CPU
+2024-12-15 20:53:04,538 - src.strategies.ml_strategy - INFO - Components initialized successfully
+2024-12-15 20:53:04,608 - src.strategies.ml_strategy - INFO - Created LSTM model with input shape: (60, 41)
+2024-12-15 20:53:04,608 - src.strategies.ml_strategy - INFO - ML Strategy initialized successfully
+2024-12-15 20:53:04,608 - src.strategies.ml_strategy - INFO - Running ML strategy...
+2024-12-15 20:53:04,608 - src.data.data_fetcher - INFO - Fetching data for AAPL
+2024-12-15 20:53:05,225 - src.data.data_preparation - WARNING - Dropping features with too many missing values: Index(['volatility_ratio_5d', 'volatility_ratio_10d', 'volatility_ratio_20d'], dtype='object')
+2024-12-15 20:53:05,260 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:53:05,260 - src.features.feature_engineer - INFO - Final data shape: (667, 41)
+2024-12-15 20:53:05,263 - src.strategies.ml_strategy - INFO - Prepared features with shape: (667, 41)
+2024-12-15 20:53:05,267 - src.strategies.ml_strategy - WARNING - Found NaN values in training data. Filling with 0...
+2024-12-15 20:53:19,007 - src.strategies.ml_strategy - INFO - Training completed - Final loss: 3.0880
+2024-12-15 20:53:19,007 - src.strategies.ml_strategy - INFO - Training completed - Final loss: 3.0880
+2024-12-15 20:53:19,007 - src.strategies.ml_strategy - INFO - Starting backtest...
+2024-12-15 20:53:19,032 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:53:19,032 - src.features.feature_engineer - INFO - Final data shape: (75, 41)
+2024-12-15 20:53:19,033 - src.strategies.ml_strategy - INFO - Prepared features with shape: (75, 41)
+2024-12-15 20:53:19,055 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:53:19,055 - src.features.feature_engineer - INFO - Final data shape: (75, 41)
+2024-12-15 20:53:19,057 - src.strategies.ml_strategy - INFO - Prepared features with shape: (75, 41)
+2024-12-15 20:53:19,554 - src.strategies.ml_strategy - INFO - Generated predictions with shape: (75, 1)
+2024-12-15 20:53:19,556 - src.strategies.ml_strategy - ERROR - Error in backtest: 'MLStrategyConfig' object has no attribute 'strategy'
+Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 686, in backtest
+    transaction_costs = trades * self.config.strategy.transaction_cost
+AttributeError: 'MLStrategyConfig' object has no attribute 'strategy'
+2024-12-15 20:53:19,592 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:53:19,592 - src.features.feature_engineer - INFO - Final data shape: (74, 41)
+2024-12-15 20:53:19,594 - src.strategies.ml_strategy - INFO - Prepared features with shape: (74, 41)
+2024-12-15 20:53:19,615 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-15 20:53:19,615 - src.features.feature_engineer - INFO - Final data shape: (74, 41)
+2024-12-15 20:53:19,617 - src.strategies.ml_strategy - INFO - Prepared features with shape: (74, 41)
+2024-12-15 20:53:19,805 - src.strategies.ml_strategy - INFO - Generated predictions with shape: (74, 1)
+2024-12-15 20:53:19,811 - __main__ - INFO - Strategy execution completed successfully
+2024-12-16 13:09:37,053 - __main__ - INFO - Initializing ML Strategy...
+2024-12-16 13:09:37,098 - src.strategies.ml_strategy - INFO - GPU devices found: [PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')]
+2024-12-16 13:09:37,098 - src.strategies.ml_strategy - INFO - Memory growth enabled for GPU: PhysicalDevice(name='/physical_device:GPU:0', device_type='GPU')
+2024-12-16 13:09:37,098 - src.strategies.ml_strategy - INFO - Components initialized successfully
+2024-12-16 13:09:37,668 - src.strategies.ml_strategy - INFO - Created LSTM model with input shape: (60, 41)
+2024-12-16 13:09:37,668 - src.strategies.ml_strategy - INFO - ML Strategy initialized successfully
+2024-12-16 13:09:37,668 - src.strategies.ml_strategy - INFO - Running ML strategy...
+2024-12-16 13:09:37,668 - src.data.data_fetcher - INFO - Fetching data for AAPL
+2024-12-16 13:09:38,244 - src.data.data_preparation - WARNING - Dropping features with too many missing values: Index(['volatility_ratio_5d', 'volatility_ratio_10d', 'volatility_ratio_20d'], dtype='object')
+2024-12-16 13:09:38,279 - src.features.feature_engineer - INFO - Created 41 features
+2024-12-16 13:09:38,279 - src.features.feature_engineer - INFO - Final data shape: (667, 41)
+2024-12-16 13:09:38,282 - src.strategies.ml_strategy - INFO - Prepared features with shape: (667, 41)
+2024-12-16 13:09:38,285 - src.strategies.ml_strategy - INFO - Starting model training...
+2024-12-16 13:09:38,285 - src.features.feature_engineer - ERROR - Error creating features: 'numpy.ndarray' object has no attribute 'empty'
+2024-12-16 13:09:38,285 - src.strategies.ml_strategy - ERROR - Error in feature preparation: 'numpy.ndarray' object has no attribute 'empty'
+2024-12-16 13:09:38,285 - src.strategies.ml_strategy - ERROR - Error in model training: 'numpy.ndarray' object has no attribute 'empty'
+2024-12-16 13:09:38,285 - src.strategies.ml_strategy - ERROR - Error running strategy: name 'traceback' is not defined
+2024-12-16 13:09:38,285 - __main__ - ERROR - Error running strategy: name 'traceback' is not defined
+2024-12-16 14:49:01,507 - MLStrategy - INFO - Initializing ML Strategy...
+2024-12-16 14:49:02,805 - MLStrategy - ERROR - Error running strategy: 'close'
+2024-12-16 15:06:29,293 - MLStrategy - INFO - Initializing ML Strategy...
+2024-12-16 15:06:31,989 - MLStrategy - ERROR - Error running strategy: Graph execution error:
+
+Detected at node sequential_1/lstm_1/CudnnRNNV3 defined at (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 236, in <module>
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 213, in main
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 933, in run
+
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 590, in train
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 368, in fit
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 216, in function
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 129, in multi_step_on_iterator
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 110, in one_step_on_data
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 56, in train_step
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/layer.py", line 899, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/ops/operation.py", line 46, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 156, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/models/sequential.py", line 213, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/models/functional.py", line 182, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/ops/function.py", line 171, in _run_through_graph
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/models/functional.py", line 632, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/layer.py", line 899, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/ops/operation.py", line 46, in __call__
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 156, in error_handler
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/rnn/lstm.py", line 570, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/rnn/rnn.py", line 402, in call
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/layers/rnn/lstm.py", line 537, in inner_loop
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/rnn.py", line 841, in lstm
+
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/rnn.py", line 933, in _cudnn_lstm
+
+Dnn is not supported
+	 [[{{node sequential_1/lstm_1/CudnnRNNV3}}]] [Op:__inference_multi_step_on_iterator_3796]
+2024-12-16 15:18:42,801 - MLStrategy - INFO - Initializing ML Strategy...
+2024-12-16 15:18:43,564 - MLStrategy - ERROR - Error running strategy: Exception encountered when calling LSTMCell.call().
+
+[1mDimensions must be equal, but are 19 and 41 for '{{node sequential_1/lstm_1/lstm_cell_1/MatMul}} = MatMul[T=DT_FLOAT, grad_a=false, grad_b=false, transpose_a=false, transpose_b=false](sequential_1/lstm_1/strided_slice_2, sequential_1/lstm_1/lstm_cell_1/Cast/ReadVariableOp)' with input shapes: [?,19], [41,256].[0m
+
+Arguments received by LSTMCell.call():
+  • inputs=tf.Tensor(shape=(None, 19), dtype=float32)
+  • states=('tf.Tensor(shape=(None, 64), dtype=float32)', 'tf.Tensor(shape=(None, 64), dtype=float32)')
+  • training=True
+2024-12-16 15:26:30,849 - MLStrategy - INFO - Initializing ML Strategy...
+2024-12-16 15:26:31,656 - MLStrategy - ERROR - Error running strategy: Exception encountered when calling LSTMCell.call().
+
+[1mDimensions must be equal, but are 19 and 41 for '{{node sequential_1/lstm_1/lstm_cell_1/MatMul}} = MatMul[T=DT_FLOAT, grad_a=false, grad_b=false, transpose_a=false, transpose_b=false](sequential_1/lstm_1/strided_slice_2, sequential_1/lstm_1/lstm_cell_1/Cast/ReadVariableOp)' with input shapes: [?,19], [41,256].[0m
+
+Arguments received by LSTMCell.call():
+  • inputs=tf.Tensor(shape=(None, 19), dtype=float32)
+  • states=('tf.Tensor(shape=(None, 64), dtype=float32)', 'tf.Tensor(shape=(None, 64), dtype=float32)')
+  • training=True
+2024-12-16 18:04:43,937 - MLStrategy - INFO - Initializing ML Strategy...
+2024-12-16 18:04:44,680 - MLStrategy - ERROR - Error running strategy: Exception encountered when calling LSTMCell.call().
+
+[1mDimensions must be equal, but are 19 and 41 for '{{node sequential_1/lstm_1/lstm_cell_1/MatMul}} = MatMul[T=DT_FLOAT, grad_a=false, grad_b=false, transpose_a=false, transpose_b=false](sequential_1/lstm_1/strided_slice_2, sequential_1/lstm_1/lstm_cell_1/Cast/ReadVariableOp)' with input shapes: [?,19], [41,256].[0m
+
+Arguments received by LSTMCell.call():
+  • inputs=tf.Tensor(shape=(None, 19), dtype=float32)
+  • states=('tf.Tensor(shape=(None, 64), dtype=float32)', 'tf.Tensor(shape=(None, 64), dtype=float32)')
+  • training=True
+2024-12-16 18:08:07,399 - MLStrategy - INFO - Initializing ML Strategy...
+2024-12-16 18:08:07,400 - MLStrategy - ERROR - Error running strategy: 'NoneType' object has no attribute 'shape'
+2024-12-16 18:35:11,202 - MLStrategy - INFO - Initializing ML Strategy...
+2024-12-16 18:35:11,203 - MLStrategy - INFO - Running strategy...
+2024-12-16 18:35:30,102 - MLStrategy - ERROR - Error running strategy: Input contains NaN.
+2024-12-16 18:35:30,102 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 216, in main
+    metrics = strategy.run()
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 981, in run
+    'test_mse': mean_squared_error(y_test, test_pred),
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/metrics/_regression.py", line 506, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/metrics/_regression.py", line 112, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/validation.py", line 1064, in check_array
+    _assert_all_finite(
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/validation.py", line 123, in _assert_all_finite
+    _assert_all_finite_element_wise(
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/validation.py", line 172, in _assert_all_finite_element_wise
+    raise ValueError(msg_err)
+ValueError: Input contains NaN.
+
+2024-12-16 20:53:04,047 - MLStrategy - INFO - Initializing ML Strategy...
+2024-12-16 20:53:04,047 - MLStrategy - INFO - Running strategy...
+2024-12-16 20:53:05,061 - MLStrategy - ERROR - Error running strategy: could not convert string to float: 'AAPL'
+2024-12-16 20:53:05,061 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 216, in main
+    metrics = strategy.run()
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 937, in run
+    self.scaler.fit_transform(train_features),
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/_set_output.py", line 316, in wrapped
+    data_to_wrap = f(self, X, *args, **kwargs)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/base.py", line 1098, in fit_transform
+    return self.fit(X, **fit_params).transform(X)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/preprocessing/_data.py", line 878, in fit
+    return self.partial_fit(X, y, sample_weight)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/base.py", line 1473, in wrapper
+    return fit_method(estimator, *args, **kwargs)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/preprocessing/_data.py", line 914, in partial_fit
+    X = self._validate_data(
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/base.py", line 633, in _validate_data
+    out = check_array(X, input_name="X", **check_params)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/validation.py", line 1012, in check_array
+    array = _asarray_with_order(array, order=order, dtype=dtype, xp=xp)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/_array_api.py", line 745, in _asarray_with_order
+    array = numpy.asarray(array, order=order, dtype=dtype)
+  File "/home/vandan/.local/lib/python3.10/site-packages/pandas/core/generic.py", line 1998, in __array__
+    arr = np.asarray(values, dtype=dtype)
+ValueError: could not convert string to float: 'AAPL'
+
+2024-12-16 20:56:23,886 - MLStrategy - INFO - Initializing ML Strategy...
+2024-12-16 20:56:23,886 - MLStrategy - INFO - Running strategy...
+2024-12-16 20:56:42,343 - MLStrategy - ERROR - Error running strategy: Input contains NaN.
+2024-12-16 20:56:42,343 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 216, in main
+    metrics = strategy.run()
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 984, in run
+    'test_mse': mean_squared_error(y_test, test_pred),
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/metrics/_regression.py", line 506, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/metrics/_regression.py", line 112, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/validation.py", line 1064, in check_array
+    _assert_all_finite(
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/validation.py", line 123, in _assert_all_finite
+    _assert_all_finite_element_wise(
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/validation.py", line 172, in _assert_all_finite_element_wise
+    raise ValueError(msg_err)
+ValueError: Input contains NaN.
+
+2024-12-16 21:21:23,893 - MLStrategy - INFO - Initializing ML Strategy...
+2024-12-16 21:21:23,893 - MLStrategy - INFO - Running strategy...
+2024-12-16 21:21:42,017 - MLStrategy - ERROR - Error running strategy: Input contains NaN.
+2024-12-16 21:21:42,017 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 216, in main
+    metrics = strategy.run()
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 984, in run
+    'test_mse': mean_squared_error(y_test, test_pred),
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/_param_validation.py", line 213, in wrapper
+    return func(*args, **kwargs)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/metrics/_regression.py", line 506, in mean_squared_error
+    y_type, y_true, y_pred, multioutput = _check_reg_targets(
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/metrics/_regression.py", line 112, in _check_reg_targets
+    y_true = check_array(y_true, ensure_2d=False, dtype=dtype)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/validation.py", line 1064, in check_array
+    _assert_all_finite(
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/validation.py", line 123, in _assert_all_finite
+    _assert_all_finite_element_wise(
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/validation.py", line 172, in _assert_all_finite_element_wise
+    raise ValueError(msg_err)
+ValueError: Input contains NaN.
+
+2024-12-16 21:23:39,391 - MLStrategy - INFO - Initializing ML Strategy...
+2024-12-16 21:23:39,391 - MLStrategy - INFO - Running strategy...
+2024-12-16 21:23:39,907 - MLStrategy - ERROR - Error running strategy: 'MLStrategyConfig' object has no attribute 'sequence_length'
+2024-12-16 21:23:39,908 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 216, in main
+    metrics = strategy.run()
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 1012, in run
+    x_train, y_train = self.prepare_sequences(train_features_scaled, train_target)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 574, in prepare_sequences
+    for i in range(len(features_array) - self.config.sequence_length):
+AttributeError: 'MLStrategyConfig' object has no attribute 'sequence_length'
+
+2024-12-16 21:25:20,772 - MLStrategy - INFO - Initializing ML Strategy...
+2024-12-16 21:25:20,772 - MLStrategy - INFO - Running strategy...
+2024-12-16 21:25:21,454 - MLStrategy - ERROR - Error running strategy: Target contains NaN values
+2024-12-16 21:25:21,454 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 216, in main
+    metrics = strategy.run()
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 1014, in run
+    x_test, y_test = self.prepare_sequences(test_features_scaled, test_target)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 566, in prepare_sequences
+    raise ValueError("Target contains NaN values")
+ValueError: Target contains NaN values
+
+2024-12-16 21:29:30,347 - MLStrategy - INFO - Initializing ML Strategy...
+2024-12-16 21:29:30,347 - MLStrategy - INFO - Fetching data...
+2024-12-16 21:29:30,907 - MLStrategy - INFO - Running strategy...
+2024-12-16 21:29:30,922 - MLStrategy - ERROR - Error running strategy: 'MLStrategy' object has no attribute '_initialize_model'
+2024-12-16 21:29:30,923 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 228, in main
+    predictions = strategy.run(data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 1024, in run
+    self._initialize_model()
+AttributeError: 'MLStrategy' object has no attribute '_initialize_model'. Did you mean: '_initialize_components'?
+
+2024-12-16 21:30:31,458 - MLStrategy - INFO - Initializing ML Strategy...
+2024-12-16 21:30:31,458 - MLStrategy - INFO - Fetching data...
+2024-12-16 21:30:32,176 - MLStrategy - INFO - Running strategy...
+2024-12-16 21:30:32,334 - MLStrategy - ERROR - Error running strategy: Exception encountered when calling LSTMCell.call().
+
+[1mDimensions must be equal, but are 18 and 41 for '{{node sequential_1/lstm_1/lstm_cell_1/MatMul}} = MatMul[T=DT_FLOAT, grad_a=false, grad_b=false, transpose_a=false, transpose_b=false](sequential_1/lstm_1/strided_slice_2, sequential_1/lstm_1/lstm_cell_1/Cast/ReadVariableOp)' with input shapes: [?,18], [41,256].[0m
+
+Arguments received by LSTMCell.call():
+  • inputs=tf.Tensor(shape=(None, 18), dtype=float32)
+  • states=('tf.Tensor(shape=(None, 64), dtype=float32)', 'tf.Tensor(shape=(None, 64), dtype=float32)')
+  • training=True
+2024-12-16 21:30:32,334 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 228, in main
+    predictions = strategy.run(data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 1027, in run
+    history = self.model.fit(
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+ValueError: Exception encountered when calling LSTMCell.call().
+
+[1mDimensions must be equal, but are 18 and 41 for '{{node sequential_1/lstm_1/lstm_cell_1/MatMul}} = MatMul[T=DT_FLOAT, grad_a=false, grad_b=false, transpose_a=false, transpose_b=false](sequential_1/lstm_1/strided_slice_2, sequential_1/lstm_1/lstm_cell_1/Cast/ReadVariableOp)' with input shapes: [?,18], [41,256].[0m
+
+Arguments received by LSTMCell.call():
+  • inputs=tf.Tensor(shape=(None, 18), dtype=float32)
+  • states=('tf.Tensor(shape=(None, 64), dtype=float32)', 'tf.Tensor(shape=(None, 64), dtype=float32)')
+  • training=True
+
+2024-12-16 22:07:28,896 - MLStrategy - ERROR - Error running strategy: '<=' not supported between instances of 'NoneType' and 'int'
+2024-12-16 22:07:28,896 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 166, in main
+    data_config = DataConfig(
+  File "<string>", line 15, in __init__
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/config/ml_strategy_config.py", line 43, in __post_init__
+    if self.n_features <= 0:
+TypeError: '<=' not supported between instances of 'NoneType' and 'int'
+
+2024-12-16 22:08:49,409 - MLStrategy - INFO - Initializing ML Strategy...
+2024-12-16 22:08:49,409 - MLStrategy - INFO - Fetching data...
+2024-12-16 22:08:50,018 - MLStrategy - INFO - Running strategy...
+2024-12-16 22:08:50,029 - MLStrategy - ERROR - Error running strategy: 'MLStrategy' object has no attribute '_prepare_data'
+2024-12-16 22:08:50,030 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 228, in main
+    predictions = strategy.run(data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 923, in run
+    X, y = self._prepare_data(features)
+AttributeError: 'MLStrategy' object has no attribute '_prepare_data'
+
+2024-12-16 22:13:49,741 - MLStrategy - INFO - Initializing ML Strategy...
+2024-12-16 22:13:49,742 - MLStrategy - INFO - Fetching data...
+2024-12-16 22:13:50,362 - MLStrategy - INFO - Running strategy...
+2024-12-16 22:13:57,630 - MLStrategy - ERROR - Error running strategy: Shape of passed values is (683, 1), indices imply (742, 1)
+2024-12-16 22:13:57,630 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 228, in main
+    predictions = strategy.run(data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 968, in run
+    return pd.DataFrame(predictions, index=features.index, columns=['predicted_returns'])
+  File "/home/vandan/.local/lib/python3.10/site-packages/pandas/core/frame.py", line 758, in __init__
+    mgr = ndarray_to_mgr(
+  File "/home/vandan/.local/lib/python3.10/site-packages/pandas/core/internals/construction.py", line 337, in ndarray_to_mgr
+    _check_values_indices_shape_match(values, index, columns)
+  File "/home/vandan/.local/lib/python3.10/site-packages/pandas/core/internals/construction.py", line 408, in _check_values_indices_shape_match
+    raise ValueError(f"Shape of passed values is {passed}, indices imply {implied}")
+ValueError: Shape of passed values is (683, 1), indices imply (742, 1)
+
+2024-12-16 22:15:45,946 - MLStrategy - INFO - Initializing ML Strategy...
+2024-12-16 22:15:45,946 - MLStrategy - INFO - Fetching data...
+2024-12-16 22:15:46,714 - MLStrategy - INFO - Running strategy...
+2024-12-16 22:16:00,792 - MLStrategy - INFO - Strategy Results:
+2024-12-16 22:16:00,792 - MLStrategy - INFO - Final predictions shape: (683, 1)
+2024-12-16 22:16:00,799 - MLStrategy - INFO - First few predictions:
+    predicted_returns
+59          -0.004830
+60          -0.005654
+61          -0.006363
+62          -0.007561
+63          -0.007845
+2024-12-16 22:16:00,800 - MLStrategy - INFO - Last few predictions:
+     predicted_returns
+737          -0.034998
+738          -0.033336
+739          -0.031660
+740          -0.028991
+741          -0.026441
+2024-12-16 22:30:53,369 - MLStrategy - INFO - Initializing ML Strategy...
+2024-12-16 22:30:53,370 - MLStrategy - ERROR - Error running strategy: MLStrategy.__init__() missing 2 required positional arguments: 'model_config' and 'feature_config'
+2024-12-16 22:30:53,370 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 275, in main
+    strategy = MLStrategy(strategy_config)
+TypeError: MLStrategy.__init__() missing 2 required positional arguments: 'model_config' and 'feature_config'
+
+2024-12-16 22:34:04,235 - MLStrategy - INFO - Initializing strategy...
+2024-12-16 22:34:04,235 - MLStrategy - INFO - Fetching data...
+2024-12-16 22:34:10,202 - MLStrategy - INFO - Training model...
+2024-12-16 22:34:10,207 - MLStrategy - ERROR - Error running strategy: 'close'
+2024-12-16 22:34:10,207 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/home/vandan/.local/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 3653, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 147, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 176, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7080, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'close'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 262, in main
+    strategy.train_model(stock_data=stock_data, market_data={'SPY': stock_data.get('SPY')})
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 142, in train_model
+    X, y = self._prepare_data(stock_data, market_data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 70, in _prepare_data
+    features = self.feature_engineer.create_features(data, market_data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/features/feature_engineer.py", line 67, in create_features
+    features['ma_5'] = self._calculate_ma(features['close'], 5)
+  File "/home/vandan/.local/lib/python3.10/site-packages/pandas/core/frame.py", line 3760, in __getitem__
+    return self._getitem_multilevel(key)
+  File "/home/vandan/.local/lib/python3.10/site-packages/pandas/core/frame.py", line 3815, in _getitem_multilevel
+    loc = self.columns.get_loc(key)
+  File "/home/vandan/.local/lib/python3.10/site-packages/pandas/core/indexes/multi.py", line 2812, in get_loc
+    loc = self._get_level_indexer(key, level=0)
+  File "/home/vandan/.local/lib/python3.10/site-packages/pandas/core/indexes/multi.py", line 3160, in _get_level_indexer
+    idx = self._get_loc_single_level_index(level_index, key)
+  File "/home/vandan/.local/lib/python3.10/site-packages/pandas/core/indexes/multi.py", line 2752, in _get_loc_single_level_index
+    return level_index.get_loc(key)
+  File "/home/vandan/.local/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 3655, in get_loc
+    raise KeyError(key) from err
+KeyError: 'close'
+
+2024-12-16 22:34:46,946 - MLStrategy - INFO - Initializing strategy...
+2024-12-16 22:34:46,946 - MLStrategy - INFO - Fetching data...
+2024-12-16 22:34:50,856 - MLStrategy - INFO - Training model...
+2024-12-16 22:34:50,909 - MLStrategy - ERROR - Error running strategy: 'NoneType' object is not subscriptable
+2024-12-16 22:34:50,909 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 262, in main
+    strategy.train_model(stock_data=stock_data, market_data={'SPY': stock_data.get('SPY')})
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 142, in train_model
+    X, y = self._prepare_data(stock_data, market_data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 70, in _prepare_data
+    features = self.feature_engineer.create_features(data, market_data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/features/feature_engineer.py", line 114, in create_features
+    market_features = self._calculate_market_regime_features(market_data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/features/feature_engineer.py", line 313, in _calculate_market_regime_features
+    spy = market_data['SPY']['close']
+TypeError: 'NoneType' object is not subscriptable
+
+2024-12-16 22:35:30,415 - MLStrategy - INFO - Initializing strategy...
+2024-12-16 22:35:30,415 - MLStrategy - INFO - Fetching data...
+2024-12-16 22:35:34,472 - MLStrategy - INFO - Training model...
+2024-12-16 22:35:34,521 - MLStrategy - ERROR - Error running strategy: All data was NaN after feature calculation
+2024-12-16 22:35:34,521 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 262, in main
+    strategy.train_model(stock_data=stock_data, market_data={'SPY': stock_data.get('SPY')})
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 142, in train_model
+    X, y = self._prepare_data(stock_data, market_data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 70, in _prepare_data
+    features = self.feature_engineer.create_features(data, market_data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/features/feature_engineer.py", line 131, in create_features
+    raise ValueError("All data was NaN after feature calculation")
+ValueError: All data was NaN after feature calculation
+
+2024-12-16 22:37:45,725 - MLStrategy - INFO - Initializing strategy...
+2024-12-16 22:37:45,725 - MLStrategy - INFO - Fetching data...
+2024-12-16 22:37:49,686 - MLStrategy - INFO - Training model...
+2024-12-16 22:37:49,705 - MLStrategy - ERROR - Error running strategy: All data was NaN after feature calculation
+2024-12-16 22:37:49,705 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 262, in main
+    strategy.train_model(stock_data=stock_data, market_data={'SPY': stock_data.get('SPY')})
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 150, in train_model
+    X, y = self._prepare_data(stock_data, market_data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 70, in _prepare_data
+    features = self.feature_engineer.create_features(data, market_data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/features/feature_engineer.py", line 134, in create_features
+    raise ValueError("All data was NaN after feature calculation")
+ValueError: All data was NaN after feature calculation
+
+2024-12-16 22:38:39,380 - MLStrategy - INFO - Initializing strategy...
+2024-12-16 22:38:39,380 - MLStrategy - INFO - Fetching data...
+2024-12-16 22:38:43,043 - MLStrategy - INFO - Training model...
+2024-12-16 22:44:05,582 - MLStrategy - INFO - Initializing strategy...
+2024-12-16 22:44:05,582 - MLStrategy - INFO - Fetching data...
+2024-12-16 22:44:09,670 - MLStrategy - INFO - Training model...
+2024-12-16 22:44:09,897 - MLStrategy - ERROR - Error running strategy: Input X contains infinity or a value too large for dtype('float64').
+2024-12-16 22:44:09,897 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 262, in main
+    strategy.train_model(stock_data=stock_data, market_data={'SPY': stock_data.get('SPY')})
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 163, in train_model
+    X, y = self._prepare_data(stock_data, market_data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 77, in _prepare_data
+    X_stock, y_stock = self._create_sequences(features)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 125, in _create_sequences
+    feature_matrix = self.scaler.transform(feature_matrix)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/_set_output.py", line 316, in wrapped
+    data_to_wrap = f(self, X, *args, **kwargs)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/preprocessing/_data.py", line 1045, in transform
+    X = self._validate_data(
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/base.py", line 633, in _validate_data
+    out = check_array(X, input_name="X", **check_params)
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/validation.py", line 1064, in check_array
+    _assert_all_finite(
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/validation.py", line 123, in _assert_all_finite
+    _assert_all_finite_element_wise(
+  File "/home/vandan/.local/lib/python3.10/site-packages/sklearn/utils/validation.py", line 172, in _assert_all_finite_element_wise
+    raise ValueError(msg_err)
+ValueError: Input X contains infinity or a value too large for dtype('float64').
+
+2024-12-16 22:46:24,872 - MLStrategy - INFO - Starting ML trading strategy execution...
+2024-12-16 22:46:24,872 - MLStrategy - INFO - Configuring feature engineering...
+2024-12-16 22:46:24,872 - MLStrategy - INFO - Feature configuration completed
+2024-12-16 22:46:24,872 - MLStrategy - INFO - Configuring model...
+2024-12-16 22:46:24,872 - MLStrategy - INFO - Model configuration completed
+2024-12-16 22:46:24,872 - MLStrategy - INFO - Configuring data parameters...
+2024-12-16 22:46:24,872 - MLStrategy - INFO - Data configuration completed
+2024-12-16 22:46:24,872 - MLStrategy - INFO - Initializing strategy...
+2024-12-16 22:46:24,872 - MLStrategy - INFO - Strategy initialization completed
+2024-12-16 22:46:24,872 - MLStrategy - INFO - Fetching data...
+2024-12-16 22:46:28,139 - MLStrategy - INFO - Successfully fetched data for 44 symbols
+2024-12-16 22:46:28,139 - MLStrategy - INFO - GOOGL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,139 - MLStrategy - INFO - MSFT: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,139 - MLStrategy - INFO - META: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,139 - MLStrategy - INFO - NVDA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,139 - MLStrategy - INFO - AMZN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,139 - MLStrategy - INFO - GOOG: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,139 - MLStrategy - INFO - AVGO: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - TSLA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - AAPL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - AMD: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - MU: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - QCOM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - TSM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - ARM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - INTC: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - CRM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - ADBE: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - ORCL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - NOW: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - PDD: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - INTU: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - MELI: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - SHOP: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - SE: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - BABA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - PYPL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - MA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - PLTR: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,140 - MLStrategy - INFO - COIN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,141 - MLStrategy - INFO - SNOW: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,141 - MLStrategy - INFO - V: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,141 - MLStrategy - INFO - SQ: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,141 - MLStrategy - INFO - MDB: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,141 - MLStrategy - INFO - NET: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,141 - MLStrategy - INFO - DDOG: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,141 - MLStrategy - INFO - NFLX: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,141 - MLStrategy - INFO - EA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,141 - MLStrategy - INFO - LI: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,141 - MLStrategy - INFO - RIVN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,141 - MLStrategy - INFO - DIS: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,141 - MLStrategy - INFO - LCID: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,141 - MLStrategy - INFO - XPEV: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,142 - MLStrategy - INFO - NIO: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,142 - MLStrategy - INFO - SONY: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:46:28,142 - MLStrategy - ERROR - Validation error: Market data (SPY) is not available
+2024-12-16 22:46:28,142 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 279, in main
+    raise ValueError("Market data (SPY) is not available")
+ValueError: Market data (SPY) is not available
+
+2024-12-16 22:47:12,805 - MLStrategy - INFO - Starting ML trading strategy execution...
+2024-12-16 22:47:12,805 - MLStrategy - INFO - Configuring feature engineering...
+2024-12-16 22:47:12,806 - MLStrategy - INFO - Feature configuration completed
+2024-12-16 22:47:12,806 - MLStrategy - INFO - Configuring model...
+2024-12-16 22:47:12,806 - MLStrategy - INFO - Model configuration completed
+2024-12-16 22:47:12,806 - MLStrategy - INFO - Configuring data parameters...
+2024-12-16 22:47:12,806 - MLStrategy - INFO - Data configuration completed
+2024-12-16 22:47:12,806 - MLStrategy - INFO - Initializing strategy...
+2024-12-16 22:47:12,806 - MLStrategy - INFO - Strategy initialization completed
+2024-12-16 22:47:12,806 - MLStrategy - INFO - Fetching data...
+2024-12-16 22:47:15,625 - MLStrategy - INFO - Successfully fetched data for 45 symbols
+2024-12-16 22:47:15,625 - MLStrategy - INFO - AAPL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,625 - MLStrategy - INFO - MSFT: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,625 - MLStrategy - INFO - AMZN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,625 - MLStrategy - INFO - META: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,625 - MLStrategy - INFO - SPY: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,625 - MLStrategy - INFO - GOOGL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,625 - MLStrategy - INFO - NVDA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,625 - MLStrategy - INFO - GOOG: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,625 - MLStrategy - INFO - TSM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,625 - MLStrategy - INFO - AMD: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,625 - MLStrategy - INFO - AVGO: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,625 - MLStrategy - INFO - TSLA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - ARM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - MU: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - QCOM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - ORCL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - CRM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - INTC: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - ADBE: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - INTU: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - SHOP: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - NOW: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - PDD: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - BABA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - SE: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - MELI: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - PYPL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - COIN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - SQ: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - V: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - PLTR: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - MA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - SNOW: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,626 - MLStrategy - INFO - DDOG: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,627 - MLStrategy - INFO - MDB: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,627 - MLStrategy - INFO - NET: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,627 - MLStrategy - INFO - EA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,627 - MLStrategy - INFO - NFLX: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,627 - MLStrategy - INFO - LI: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,627 - MLStrategy - INFO - SONY: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,627 - MLStrategy - INFO - RIVN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,627 - MLStrategy - INFO - DIS: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,627 - MLStrategy - INFO - LCID: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,627 - MLStrategy - INFO - NIO: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,627 - MLStrategy - INFO - XPEV: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:47:15,627 - MLStrategy - INFO - Starting model training...
+2024-12-16 22:52:53,308 - MLStrategy - INFO - Starting ML trading strategy execution...
+2024-12-16 22:52:53,309 - MLStrategy - INFO - Configuring feature engineering...
+2024-12-16 22:52:53,309 - MLStrategy - INFO - Feature configuration completed
+2024-12-16 22:52:53,309 - MLStrategy - INFO - Configuring model...
+2024-12-16 22:52:53,309 - MLStrategy - INFO - Model configuration completed
+2024-12-16 22:52:53,309 - MLStrategy - INFO - Configuring data parameters...
+2024-12-16 22:52:53,309 - MLStrategy - INFO - Data configuration completed
+2024-12-16 22:52:53,309 - MLStrategy - INFO - Initializing strategy...
+2024-12-16 22:52:53,309 - MLStrategy - INFO - Strategy initialization completed
+2024-12-16 22:52:53,309 - MLStrategy - INFO - Fetching data...
+2024-12-16 22:52:55,811 - MLStrategy - INFO - Successfully fetched data for 45 symbols
+2024-12-16 22:52:55,811 - MLStrategy - INFO - GOOGL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,811 - MLStrategy - INFO - SPY: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,811 - MLStrategy - INFO - AAPL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,811 - MLStrategy - INFO - AMZN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,811 - MLStrategy - INFO - META: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,811 - MLStrategy - INFO - GOOG: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,811 - MLStrategy - INFO - NVDA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,811 - MLStrategy - INFO - AVGO: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,811 - MLStrategy - INFO - MSFT: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,811 - MLStrategy - INFO - TSLA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - TSM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - INTC: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - ARM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - QCOM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - AMD: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - CRM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - ADBE: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - ORCL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - MU: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - NOW: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - PDD: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - INTU: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - SHOP: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - MELI: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - SE: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - BABA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - PYPL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - V: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - SQ: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - COIN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,812 - MLStrategy - INFO - PLTR: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,813 - MLStrategy - INFO - SNOW: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,813 - MLStrategy - INFO - MA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,813 - MLStrategy - INFO - MDB: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,813 - MLStrategy - INFO - DDOG: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,813 - MLStrategy - INFO - NET: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,813 - MLStrategy - INFO - NFLX: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,813 - MLStrategy - INFO - SONY: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,813 - MLStrategy - INFO - EA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,813 - MLStrategy - INFO - LI: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,813 - MLStrategy - INFO - DIS: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,813 - MLStrategy - INFO - RIVN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,813 - MLStrategy - INFO - LCID: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,813 - MLStrategy - INFO - NIO: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,813 - MLStrategy - INFO - XPEV: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:52:55,813 - MLStrategy - INFO - Starting model training...
+2024-12-16 22:52:58,124 - MLStrategy - ERROR - Validation error: The filepath provided must end in `.keras` (Keras model format). Received: filepath=models/best_model.h5
+2024-12-16 22:52:58,124 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 285, in main
+    strategy.train_model(stock_data=stock_data, market_data={'SPY': stock_data.get('SPY')})
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 267, in train_model
+    tf.keras.callbacks.ModelCheckpoint(
+  File "/home/vandan/.local/lib/python3.10/site-packages/keras/src/callbacks/model_checkpoint.py", line 191, in __init__
+    raise ValueError(
+ValueError: The filepath provided must end in `.keras` (Keras model format). Received: filepath=models/best_model.h5
+
+2024-12-16 22:53:53,427 - MLStrategy - INFO - Starting ML trading strategy execution...
+2024-12-16 22:53:53,428 - MLStrategy - INFO - Configuring feature engineering...
+2024-12-16 22:53:53,428 - MLStrategy - INFO - Feature configuration completed
+2024-12-16 22:53:53,428 - MLStrategy - INFO - Configuring model...
+2024-12-16 22:53:53,428 - MLStrategy - INFO - Model configuration completed
+2024-12-16 22:53:53,428 - MLStrategy - INFO - Configuring data parameters...
+2024-12-16 22:53:53,428 - MLStrategy - INFO - Data configuration completed
+2024-12-16 22:53:53,428 - MLStrategy - INFO - Initializing strategy...
+2024-12-16 22:53:53,428 - MLStrategy - INFO - Strategy initialization completed
+2024-12-16 22:53:53,428 - MLStrategy - INFO - Fetching data...
+2024-12-16 22:53:55,785 - MLStrategy - INFO - Successfully fetched data for 45 symbols
+2024-12-16 22:53:55,785 - MLStrategy - INFO - GOOG: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,785 - MLStrategy - INFO - GOOGL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,785 - MLStrategy - INFO - SPY: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,785 - MLStrategy - INFO - AAPL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,785 - MLStrategy - INFO - AMZN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,785 - MLStrategy - INFO - META: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,785 - MLStrategy - INFO - NVDA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,785 - MLStrategy - INFO - AVGO: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,785 - MLStrategy - INFO - MSFT: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,785 - MLStrategy - INFO - TSLA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,785 - MLStrategy - INFO - TSM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,785 - MLStrategy - INFO - ARM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,785 - MLStrategy - INFO - INTC: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,785 - MLStrategy - INFO - QCOM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,785 - MLStrategy - INFO - MU: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,785 - MLStrategy - INFO - AMD: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - CRM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - NOW: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - ADBE: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - INTU: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - BABA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - ORCL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - PDD: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - MELI: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - SHOP: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - SE: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - V: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - MA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - SQ: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - PYPL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - PLTR: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - COIN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - SNOW: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - MDB: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - DDOG: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - NET: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - NFLX: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,786 - MLStrategy - INFO - LI: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,787 - MLStrategy - INFO - RIVN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,787 - MLStrategy - INFO - EA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,787 - MLStrategy - INFO - SONY: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,787 - MLStrategy - INFO - DIS: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,787 - MLStrategy - INFO - LCID: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,787 - MLStrategy - INFO - XPEV: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,787 - MLStrategy - INFO - NIO: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:53:55,787 - MLStrategy - INFO - Starting model training...
+2024-12-16 22:56:13,502 - MLStrategy - INFO - Starting ML trading strategy execution...
+2024-12-16 22:56:13,503 - MLStrategy - INFO - Configuring feature engineering...
+2024-12-16 22:56:13,503 - MLStrategy - INFO - Feature configuration completed
+2024-12-16 22:56:13,503 - MLStrategy - INFO - Configuring model...
+2024-12-16 22:56:13,503 - MLStrategy - INFO - Model configuration completed
+2024-12-16 22:56:13,503 - MLStrategy - INFO - Configuring data parameters...
+2024-12-16 22:56:13,503 - MLStrategy - INFO - Data configuration completed
+2024-12-16 22:56:13,503 - MLStrategy - INFO - Initializing strategy...
+2024-12-16 22:56:13,503 - MLStrategy - INFO - Strategy initialization completed
+2024-12-16 22:56:13,503 - MLStrategy - INFO - Fetching data...
+2024-12-16 22:56:16,208 - MLStrategy - INFO - Successfully fetched data for 45 symbols
+2024-12-16 22:56:16,208 - MLStrategy - INFO - GOOGL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,208 - MLStrategy - INFO - SPY: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,208 - MLStrategy - INFO - AAPL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,208 - MLStrategy - INFO - AMZN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,208 - MLStrategy - INFO - META: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,208 - MLStrategy - INFO - MSFT: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,208 - MLStrategy - INFO - NVDA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,208 - MLStrategy - INFO - AVGO: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,208 - MLStrategy - INFO - GOOG: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,208 - MLStrategy - INFO - TSLA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - TSM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - ARM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - MU: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - AMD: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - QCOM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - CRM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - INTC: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - ORCL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - NOW: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - INTU: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - PDD: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - ADBE: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - SHOP: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - SE: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - BABA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - MELI: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - MA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - V: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - SQ: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - COIN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - PLTR: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,209 - MLStrategy - INFO - PYPL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,210 - MLStrategy - INFO - SNOW: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,210 - MLStrategy - INFO - DDOG: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,210 - MLStrategy - INFO - NET: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,210 - MLStrategy - INFO - MDB: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,210 - MLStrategy - INFO - DIS: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,210 - MLStrategy - INFO - NFLX: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,210 - MLStrategy - INFO - LI: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,210 - MLStrategy - INFO - EA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,210 - MLStrategy - INFO - SONY: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,210 - MLStrategy - INFO - RIVN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,210 - MLStrategy - INFO - NIO: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,210 - MLStrategy - INFO - LCID: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,210 - MLStrategy - INFO - XPEV: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:56:16,210 - MLStrategy - INFO - Starting model training...
+2024-12-16 22:57:59,270 - MLStrategy - INFO - Starting ML trading strategy execution...
+2024-12-16 22:57:59,271 - MLStrategy - INFO - Configuring feature engineering...
+2024-12-16 22:57:59,271 - MLStrategy - INFO - Feature configuration completed
+2024-12-16 22:57:59,271 - MLStrategy - INFO - Configuring model...
+2024-12-16 22:57:59,271 - MLStrategy - INFO - Model configuration completed
+2024-12-16 22:57:59,271 - MLStrategy - INFO - Configuring data parameters...
+2024-12-16 22:57:59,271 - MLStrategy - INFO - Data configuration completed
+2024-12-16 22:57:59,271 - MLStrategy - INFO - Initializing strategy...
+2024-12-16 22:57:59,271 - MLStrategy - INFO - Strategy initialization completed
+2024-12-16 22:57:59,271 - MLStrategy - INFO - Fetching data...
+2024-12-16 22:58:02,033 - MLStrategy - INFO - Successfully fetched data for 45 symbols
+2024-12-16 22:58:02,033 - MLStrategy - INFO - MSFT: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,033 - MLStrategy - INFO - SPY: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,033 - MLStrategy - INFO - GOOG: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,033 - MLStrategy - INFO - AAPL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,033 - MLStrategy - INFO - GOOGL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,033 - MLStrategy - INFO - AMZN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - NVDA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - META: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - TSLA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - TSM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - AVGO: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - AMD: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - ARM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - QCOM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - CRM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - INTC: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - MU: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - ORCL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - NOW: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - INTU: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - BABA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - PDD: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - ADBE: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - SHOP: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - SE: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - MELI: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,034 - MLStrategy - INFO - V: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - PYPL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - MA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - SQ: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - COIN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - PLTR: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - SNOW: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - NET: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - MDB: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - DDOG: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - NFLX: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - LI: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - DIS: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - RIVN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - SONY: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - LCID: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - EA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - XPEV: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - NIO: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 22:58:02,035 - MLStrategy - INFO - Starting model training...
+2024-12-16 22:59:26,511 - MLStrategy - INFO - Strategy execution completed successfully
+2024-12-16 22:59:44,501 - MLStrategy - INFO - Strategy execution completed successfully
+2024-12-16 23:13:50,372 - MLStrategy - INFO - Starting ML trading strategy execution...
+2024-12-16 23:13:50,372 - MLStrategy - INFO - Configuring feature engineering...
+2024-12-16 23:13:50,372 - MLStrategy - INFO - Feature configuration completed
+2024-12-16 23:13:50,372 - MLStrategy - INFO - Configuring model...
+2024-12-16 23:13:50,372 - MLStrategy - INFO - Model configuration completed
+2024-12-16 23:13:50,372 - MLStrategy - INFO - Configuring data parameters...
+2024-12-16 23:13:50,372 - MLStrategy - INFO - Data configuration completed
+2024-12-16 23:13:50,372 - MLStrategy - INFO - Initializing strategy...
+2024-12-16 23:13:50,372 - MLStrategy - INFO - Strategy initialization completed
+2024-12-16 23:13:50,372 - MLStrategy - INFO - Fetching data...
+2024-12-16 23:13:53,193 - MLStrategy - INFO - Successfully fetched data for 45 symbols
+2024-12-16 23:13:53,193 - MLStrategy - INFO - MSFT: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,193 - MLStrategy - INFO - AAPL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,193 - MLStrategy - INFO - SPY: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,193 - MLStrategy - INFO - AMZN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,193 - MLStrategy - INFO - META: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,193 - MLStrategy - INFO - GOOGL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,193 - MLStrategy - INFO - NVDA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,193 - MLStrategy - INFO - GOOG: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,194 - MLStrategy - INFO - AVGO: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,194 - MLStrategy - INFO - AMD: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,194 - MLStrategy - INFO - INTC: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,194 - MLStrategy - INFO - TSLA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,194 - MLStrategy - INFO - ARM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,194 - MLStrategy - INFO - TSM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,194 - MLStrategy - INFO - QCOM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,194 - MLStrategy - INFO - MU: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,194 - MLStrategy - INFO - ADBE: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,194 - MLStrategy - INFO - ORCL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,194 - MLStrategy - INFO - CRM: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,194 - MLStrategy - INFO - INTU: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,194 - MLStrategy - INFO - BABA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,194 - MLStrategy - INFO - PDD: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - NOW: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - SE: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - MELI: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - SHOP: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - SQ: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - MA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - COIN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - PYPL: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - V: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - PLTR: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - DDOG: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - SNOW: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - NET: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - NFLX: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - MDB: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - EA: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - RIVN: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - SONY: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - LI: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - LCID: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,195 - MLStrategy - INFO - DIS: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,196 - MLStrategy - INFO - NIO: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,196 - MLStrategy - INFO - XPEV: 2505 rows from 2015-01-02 00:00:00-05:00 to 2024-12-13 00:00:00-05:00
+2024-12-16 23:13:53,196 - MLStrategy - INFO - Starting model training...
+2024-12-16 23:22:09,946 - MLStrategy - INFO - Strategy execution completed successfully
+2024-12-17 13:31:15,501 - MLStrategy - INFO - Starting ML trading strategy execution...
+2024-12-17 13:31:15,501 - MLStrategy - INFO - Configuring feature engineering...
+2024-12-17 13:31:15,501 - MLStrategy - INFO - Feature configuration completed
+2024-12-17 13:31:15,501 - MLStrategy - INFO - Configuring model...
+2024-12-17 13:31:15,501 - MLStrategy - INFO - Model configuration completed
+2024-12-17 13:31:15,501 - MLStrategy - INFO - Configuring data parameters...
+2024-12-17 13:31:15,501 - MLStrategy - INFO - Data configuration completed
+2024-12-17 13:31:15,501 - MLStrategy - INFO - Initializing strategy...
+2024-12-17 13:31:15,501 - MLStrategy - INFO - Strategy initialization completed
+2024-12-17 13:31:15,501 - MLStrategy - INFO - Fetching data...
+2024-12-17 13:31:18,216 - MLStrategy - INFO - Successfully fetched data for 45 symbols
+2024-12-17 13:31:18,216 - MLStrategy - INFO - GOOGL: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,216 - MLStrategy - INFO - MSFT: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,216 - MLStrategy - INFO - META: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,216 - MLStrategy - INFO - AMZN: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,216 - MLStrategy - INFO - GOOG: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,216 - MLStrategy - INFO - SPY: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,216 - MLStrategy - INFO - AAPL: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,216 - MLStrategy - INFO - AVGO: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - AMD: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - NVDA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - TSLA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - TSM: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - INTC: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - QCOM: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - ARM: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - CRM: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - MU: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - INTU: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - ORCL: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - BABA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - ADBE: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - NOW: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - SHOP: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - PDD: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - SE: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - MELI: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - V: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - PYPL: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - SQ: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,217 - MLStrategy - INFO - MA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,218 - MLStrategy - INFO - COIN: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,218 - MLStrategy - INFO - PLTR: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,218 - MLStrategy - INFO - SNOW: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,218 - MLStrategy - INFO - DDOG: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,218 - MLStrategy - INFO - MDB: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,218 - MLStrategy - INFO - NET: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,218 - MLStrategy - INFO - NFLX: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,218 - MLStrategy - INFO - RIVN: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,218 - MLStrategy - INFO - LI: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,218 - MLStrategy - INFO - EA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,218 - MLStrategy - INFO - DIS: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,218 - MLStrategy - INFO - SONY: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,218 - MLStrategy - INFO - LCID: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,218 - MLStrategy - INFO - XPEV: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,218 - MLStrategy - INFO - NIO: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:31:18,218 - MLStrategy - INFO - Starting model training...
+2024-12-17 13:31:18,220 - MLStrategy - ERROR - Error running strategy: 'MLStrategy' object has no attribute '_calculate_technical_indicators'
+2024-12-17 13:31:18,221 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 285, in main
+    strategy.train_model(stock_data=stock_data, market_data={'SPY': stock_data.get('SPY')})
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 173, in train_model
+    X, y = self._prepare_data(stock_data, market_data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 72, in _prepare_data
+    data = self._calculate_technical_indicators(data)
+AttributeError: 'MLStrategy' object has no attribute '_calculate_technical_indicators'
+
+2024-12-17 13:33:15,331 - MLStrategy - INFO - Starting ML trading strategy execution...
+2024-12-17 13:33:15,331 - MLStrategy - INFO - Configuring feature engineering...
+2024-12-17 13:33:15,331 - MLStrategy - INFO - Feature configuration completed
+2024-12-17 13:33:15,331 - MLStrategy - INFO - Configuring model...
+2024-12-17 13:33:15,331 - MLStrategy - INFO - Model configuration completed
+2024-12-17 13:33:15,331 - MLStrategy - INFO - Configuring data parameters...
+2024-12-17 13:33:15,331 - MLStrategy - INFO - Data configuration completed
+2024-12-17 13:33:15,331 - MLStrategy - INFO - Initializing strategy...
+2024-12-17 13:33:15,331 - MLStrategy - INFO - Strategy initialization completed
+2024-12-17 13:33:15,331 - MLStrategy - INFO - Fetching data...
+2024-12-17 13:33:18,057 - MLStrategy - INFO - Successfully fetched data for 45 symbols
+2024-12-17 13:33:18,057 - MLStrategy - INFO - GOOG: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,057 - MLStrategy - INFO - AAPL: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,057 - MLStrategy - INFO - GOOGL: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,057 - MLStrategy - INFO - AMZN: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,057 - MLStrategy - INFO - META: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - NVDA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - SPY: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - MSFT: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - AVGO: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - AMD: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - INTC: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - QCOM: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - ARM: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - TSLA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - TSM: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - MU: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - CRM: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - ORCL: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - NOW: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - PDD: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - BABA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - INTU: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - ADBE: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - SHOP: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - SE: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,058 - MLStrategy - INFO - MELI: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - PYPL: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - SQ: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - COIN: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - V: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - MA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - PLTR: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - MDB: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - SNOW: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - DDOG: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - NET: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - NFLX: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - LI: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - RIVN: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - EA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - LCID: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - NIO: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - XPEV: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - DIS: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - SONY: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:33:18,059 - MLStrategy - INFO - Starting model training...
+2024-12-17 13:33:18,061 - MLStrategy - ERROR - Error running strategy: 'Close'
+2024-12-17 13:33:18,061 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/home/vandan/.local/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 3653, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 147, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 176, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7080, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Close'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 285, in main
+    strategy.train_model(stock_data=stock_data, market_data={'SPY': stock_data.get('SPY')})
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 173, in train_model
+    X, y = self._prepare_data(stock_data, market_data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 72, in _prepare_data
+    data = self._calculate_technical_indicators(data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 1526, in _calculate_technical_indicators
+    df['returns'] = df['Close'].pct_change()
+  File "/home/vandan/.local/lib/python3.10/site-packages/pandas/core/frame.py", line 3761, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "/home/vandan/.local/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 3655, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Close'
+
+2024-12-17 13:34:21,806 - MLStrategy - INFO - Starting ML trading strategy execution...
+2024-12-17 13:34:21,806 - MLStrategy - INFO - Configuring feature engineering...
+2024-12-17 13:34:21,806 - MLStrategy - INFO - Feature configuration completed
+2024-12-17 13:34:21,806 - MLStrategy - INFO - Configuring model...
+2024-12-17 13:34:21,806 - MLStrategy - INFO - Model configuration completed
+2024-12-17 13:34:21,806 - MLStrategy - INFO - Configuring data parameters...
+2024-12-17 13:34:21,806 - MLStrategy - INFO - Data configuration completed
+2024-12-17 13:34:21,806 - MLStrategy - INFO - Initializing strategy...
+2024-12-17 13:34:21,806 - MLStrategy - INFO - Strategy initialization completed
+2024-12-17 13:34:21,806 - MLStrategy - INFO - Fetching data...
+2024-12-17 13:34:24,510 - MLStrategy - INFO - Successfully fetched data for 45 symbols
+2024-12-17 13:34:24,511 - MLStrategy - INFO - GOOGL: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,511 - MLStrategy - INFO - MSFT: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,511 - MLStrategy - INFO - AAPL: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,511 - MLStrategy - INFO - META: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,511 - MLStrategy - INFO - AMZN: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,511 - MLStrategy - INFO - SPY: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,511 - MLStrategy - INFO - NVDA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,511 - MLStrategy - INFO - GOOG: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,511 - MLStrategy - INFO - TSLA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,511 - MLStrategy - INFO - AVGO: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,511 - MLStrategy - INFO - AMD: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,511 - MLStrategy - INFO - ARM: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - QCOM: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - TSM: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - MU: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - INTC: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - ORCL: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - NOW: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - ADBE: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - CRM: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - INTU: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - BABA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - PDD: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - SHOP: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - MELI: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - SE: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - V: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - SQ: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - PYPL: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - COIN: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - PLTR: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - MA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - SNOW: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,512 - MLStrategy - INFO - DDOG: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,513 - MLStrategy - INFO - NET: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,513 - MLStrategy - INFO - MDB: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,513 - MLStrategy - INFO - NFLX: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,513 - MLStrategy - INFO - LI: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,513 - MLStrategy - INFO - DIS: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,513 - MLStrategy - INFO - RIVN: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,513 - MLStrategy - INFO - EA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,513 - MLStrategy - INFO - LCID: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,513 - MLStrategy - INFO - SONY: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,513 - MLStrategy - INFO - XPEV: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,513 - MLStrategy - INFO - NIO: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 13:34:24,513 - MLStrategy - INFO - Starting model training...
+2024-12-17 13:34:24,521 - MLStrategy - ERROR - Error running strategy: 'Close'
+2024-12-17 13:34:24,522 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/home/vandan/.local/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 3653, in get_loc
+    return self._engine.get_loc(casted_key)
+  File "pandas/_libs/index.pyx", line 147, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/index.pyx", line 176, in pandas._libs.index.IndexEngine.get_loc
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7080, in pandas._libs.hashtable.PyObjectHashTable.get_item
+  File "pandas/_libs/hashtable_class_helper.pxi", line 7088, in pandas._libs.hashtable.PyObjectHashTable.get_item
+KeyError: 'Close'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 285, in main
+    strategy.train_model(stock_data=stock_data, market_data={'SPY': stock_data.get('SPY')})
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 181, in train_model
+    X, y = self._prepare_data(stock_data, market_data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 77, in _prepare_data
+    data = self._calculate_technical_indicators(data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 1534, in _calculate_technical_indicators
+    df['returns'] = df['Close'].pct_change()
+  File "/home/vandan/.local/lib/python3.10/site-packages/pandas/core/frame.py", line 3761, in __getitem__
+    indexer = self.columns.get_loc(key)
+  File "/home/vandan/.local/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 3655, in get_loc
+    raise KeyError(key) from err
+KeyError: 'Close'
+
+2024-12-17 14:52:26,285 - MLStrategy - INFO - Starting ML trading strategy execution...
+2024-12-17 14:52:26,285 - MLStrategy - INFO - Configuring feature engineering...
+2024-12-17 14:52:26,285 - MLStrategy - INFO - Feature configuration completed
+2024-12-17 14:52:26,285 - MLStrategy - INFO - Configuring model...
+2024-12-17 14:52:26,285 - MLStrategy - INFO - Model configuration completed
+2024-12-17 14:52:26,285 - MLStrategy - INFO - Configuring data parameters...
+2024-12-17 14:52:26,285 - MLStrategy - INFO - Data configuration completed
+2024-12-17 14:52:26,286 - MLStrategy - INFO - Initializing strategy...
+2024-12-17 14:52:26,286 - MLStrategy - INFO - Strategy initialization completed
+2024-12-17 14:52:26,286 - MLStrategy - INFO - Fetching data...
+2024-12-17 14:52:29,049 - MLStrategy - INFO - Successfully fetched data for 45 symbols
+2024-12-17 14:52:29,049 - MLStrategy - INFO - GOOG: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,049 - MLStrategy - INFO - AAPL: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,049 - MLStrategy - INFO - SPY: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,049 - MLStrategy - INFO - AMZN: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,049 - MLStrategy - INFO - META: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,049 - MLStrategy - INFO - NVDA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,049 - MLStrategy - INFO - GOOGL: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,049 - MLStrategy - INFO - AVGO: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,049 - MLStrategy - INFO - TSLA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,049 - MLStrategy - INFO - MSFT: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,049 - MLStrategy - INFO - INTC: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,049 - MLStrategy - INFO - TSM: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,049 - MLStrategy - INFO - ARM: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,049 - MLStrategy - INFO - MU: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,049 - MLStrategy - INFO - AMD: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - QCOM: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - CRM: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - ORCL: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - ADBE: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - NOW: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - INTU: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - BABA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - PDD: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - MELI: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - SE: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - V: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - SHOP: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - MA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - PYPL: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - SNOW: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - PLTR: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - COIN: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - MDB: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - SQ: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - NET: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,050 - MLStrategy - INFO - DDOG: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,051 - MLStrategy - INFO - NFLX: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,051 - MLStrategy - INFO - RIVN: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,051 - MLStrategy - INFO - LI: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,051 - MLStrategy - INFO - EA: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,051 - MLStrategy - INFO - SONY: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,051 - MLStrategy - INFO - DIS: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,051 - MLStrategy - INFO - LCID: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,051 - MLStrategy - INFO - XPEV: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,051 - MLStrategy - INFO - NIO: 2506 rows from 2015-01-02 00:00:00-05:00 to 2024-12-16 00:00:00-05:00
+2024-12-17 14:52:29,051 - MLStrategy - INFO - Starting model training...
+2024-12-17 14:52:29,379 - MLStrategy - ERROR - Error running strategy: 'NoneType' object has no attribute 'transform'
+2024-12-17 14:52:29,379 - MLStrategy - ERROR - Traceback (most recent call last):
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/run_ml_strategy.py", line 285, in main
+    strategy.train_model(stock_data=stock_data, market_data={'SPY': stock_data.get('SPY')})
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 180, in train_model
+    X, y = self._prepare_data(stock_data, market_data)
+  File "/mnt/VANDAN_DISK/code_stuff/projects/algo_trading/src/strategies/ml_strategy.py", line 111, in _prepare_data
+    features_scaled = self.scaler.transform(features)
+AttributeError: 'NoneType' object has no attribute 'transform'
+
