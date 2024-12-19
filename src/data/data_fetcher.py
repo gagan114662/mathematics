@@ -29,7 +29,7 @@ class DataFetcher:
         """Get cache file path for a symbol."""
         return os.path.join(
             self.cache_dir,
-            f"{symbol}_{start_date}_{end_date}.csv"
+            f"{symbol}_{start_date}_{end_date}.parquet"
         )
     
     def _validate_data(self, df: pd.DataFrame, symbol: str) -> bool:
@@ -44,109 +44,168 @@ class DataFetcher:
             bool: True if data is valid
         """
         try:
+            # Log the DataFrame info
+            self.logger.info(f"Validating data for {symbol}")
+            self.logger.info(f"DataFrame shape: {df.shape}")
+            self.logger.info(f"DataFrame columns: {df.columns.tolist()}")
+            self.logger.info(f"DataFrame index: {df.index}")
+            
             # Check for required columns
             required_cols = ['open', 'high', 'low', 'close', 'volume']
-            if not all(col in df.columns for col in required_cols):
-                self.logger.error(f"Missing required columns for {symbol}")
+            missing_cols = [col for col in required_cols if col.lower() not in df.columns.str.lower()]
+            if missing_cols:
+                self.logger.error(f"Missing required columns for {symbol}: {missing_cols}")
                 return False
             
             # Check for empty DataFrame
             if df.empty:
-                self.logger.error(f"Empty data for {symbol}")
+                self.logger.error(f"Empty DataFrame for {symbol}")
                 return False
             
             # Check for missing values
-            missing = df[required_cols].isnull().sum()
-            if missing.any():
-                self.logger.warning(f"Missing values in {symbol}:\n{missing[missing > 0]}")
+            missing_values = df[required_cols].isnull().sum()
+            if missing_values.any():
+                self.logger.error(f"Missing values in required columns for {symbol}:\n{missing_values}")
                 return False
             
-            # Check for invalid values
-            if (df[['open', 'high', 'low', 'close']] <= 0).any().any():
-                self.logger.error(f"Invalid price values for {symbol}")
-                return False
-            
+            # Check for negative values in volume
             if (df['volume'] < 0).any():
-                self.logger.error(f"Invalid volume values for {symbol}")
+                self.logger.error(f"Negative volume values found for {symbol}")
                 return False
             
-            # Check for data continuity
-            if not isinstance(df.index, pd.DatetimeIndex):
-                df.index = pd.to_datetime(df.index)
+            # Check for price consistency
+            price_issues = []
+            if (df['low'] > df['high']).any():
+                price_issues.append("Low price greater than high price")
+            if (df['close'] > df['high']).any() or (df['close'] < df['low']).any():
+                price_issues.append("Close price outside high-low range")
+            if (df['open'] > df['high']).any() or (df['open'] < df['low']).any():
+                price_issues.append("Open price outside high-low range")
             
-            date_diff = df.index.to_series().diff().dt.days
-            if date_diff.max() > 5:  # Allow for weekends and holidays
-                self.logger.warning(f"Large gaps in data for {symbol}")
+            if price_issues:
+                self.logger.error(f"Price consistency issues for {symbol}: {', '.join(price_issues)}")
+                return False
             
+            self.logger.info(f"Data validation successful for {symbol}")
             return True
             
         except Exception as e:
             self.logger.error(f"Error validating data for {symbol}: {str(e)}")
+            self.logger.error(traceback.format_exc())
             return False
     
+    def _save_to_cache(self, df: pd.DataFrame, cache_path: str) -> None:
+        """Save data to cache."""
+        try:
+            df.to_parquet(cache_path)
+            self.logger.info(f"Data saved to cache: {cache_path}")
+        except Exception as e:
+            self.logger.error(f"Error saving to cache: {str(e)}")
+            self.logger.error(traceback.format_exc())
+
+    def _load_from_cache(self, cache_path: str) -> Optional[pd.DataFrame]:
+        """Load data from cache."""
+        try:
+            if os.path.exists(cache_path):
+                df = pd.read_parquet(cache_path)
+                self.logger.info(f"Data loaded from cache: {cache_path}")
+                return df
+        except Exception as e:
+            self.logger.error(f"Error loading from cache: {str(e)}")
+            self.logger.error(traceback.format_exc())
+        return None
+
     def fetch_stock_data(
         self,
         symbols: Union[str, List[str]],
         start_date: str,
         end_date: str,
         use_cache: bool = True
-    ) -> pd.DataFrame:
+    ) -> Dict[str, pd.DataFrame]:
         """
-        Fetch stock data with caching and validation.
+        Fetch stock data for given symbols.
         
         Args:
-            symbols: Stock symbol(s)
-            start_date: Start date
-            end_date: End date
+            symbols: Stock symbol(s) to fetch
+            start_date: Start date in YYYY-MM-DD format
+            end_date: End date in YYYY-MM-DD format
             use_cache: Whether to use cached data
             
         Returns:
-            DataFrame with stock data
+            Dict[str, pd.DataFrame]: Dictionary mapping symbols to their data
         """
+        self.logger.info(f"Fetching data for symbols: {symbols}")
+        self.logger.info(f"Date range: {start_date} to {end_date}")
+        
+        if isinstance(symbols, str):
+            symbols = [symbols]
+        
+        stock_data = {}
+        
         try:
-            if isinstance(symbols, str):
-                symbols = [symbols]
-            
-            all_data = []
             for symbol in symbols:
+                self.logger.info(f"Processing symbol: {symbol}")
+                
                 # Try to load from cache first
                 if use_cache:
-                    cache_path = self._get_cache_path(symbol, start_date, end_date)
-                    if os.path.exists(cache_path):
-                        self.logger.info(f"Loading cached data for {symbol}")
-                        df = pd.read_csv(cache_path, index_col=0, parse_dates=True)
-                        if self._validate_data(df, symbol):
-                            all_data.append(df)
+                    # Try different date ranges in cache
+                    cache_files = [f for f in os.listdir(self.cache_dir) if f.startswith(f"{symbol}_") and f.endswith(".parquet")]
+                    self.logger.info(f"Found cache files: {cache_files}")
+                    
+                    for cache_file in cache_files:
+                        try:
+                            df = pd.read_parquet(os.path.join(self.cache_dir, cache_file))
+                            self.logger.info(f"Loaded cache file: {cache_file}")
+                            self.logger.info(f"DataFrame shape: {df.shape}")
+                            self.logger.info(f"DataFrame columns: {df.columns.tolist()}")
+                            
+                            # Convert index to datetime if needed
+                            if not isinstance(df.index, pd.DatetimeIndex):
+                                df.index = pd.to_datetime(df.index)
+                            
+                            # Filter to requested date range
+                            df = df[start_date:end_date]
+                            
+                            if not df.empty and self._validate_data(df, symbol):
+                                self.logger.info(f"Using cached data for {symbol}")
+                                stock_data[symbol] = df
+                                break
+                        except Exception as e:
+                            self.logger.warning(f"Error loading cache file {cache_file}: {str(e)}")
                             continue
                 
-                # Fetch from yfinance if not in cache or invalid
-                self.logger.info(f"Fetching data for {symbol}")
-                ticker = yf.Ticker(symbol)
-                df = ticker.history(start=start_date, end=end_date)
-                
-                # Standardize column names to lowercase
-                df.columns = df.columns.str.lower()
-                
-                if self._validate_data(df, symbol):
-                    # Save to cache if valid
-                    if use_cache:
-                        cache_path = self._get_cache_path(symbol, start_date, end_date)
-                        df.to_csv(cache_path)
-                    all_data.append(df)
+                # If no valid cached data found, fetch from yfinance
+                if symbol not in stock_data:
+                    self.logger.info(f"Fetching {symbol} from yfinance")
+                    ticker = yf.Ticker(symbol)
+                    df = ticker.history(start=start_date, end=end_date)
+                    
+                    # Convert column names to lowercase
+                    df.columns = df.columns.str.lower()
+                    
+                    if not df.empty and self._validate_data(df, symbol):
+                        self.logger.info(f"Fetched valid data for {symbol}")
+                        stock_data[symbol] = df
+                        
+                        # Save to cache
+                        if use_cache:
+                            cache_path = self._get_cache_path(symbol, start_date, end_date)
+                            self._save_to_cache(df, cache_path)
+                    else:
+                        self.logger.error(f"Failed to validate data for {symbol}")
             
-            if not all_data:
-                raise ValueError("No valid data fetched for any symbol")
+            if not stock_data:
+                self.logger.error("No valid data found for any symbols")
+                return {}
             
-            # Combine all data
-            combined_data = pd.concat(all_data, axis=1, keys=symbols)
-            combined_data.index.name = 'date'
-            
-            return combined_data
+            self.logger.info(f"Successfully fetched data for {len(stock_data)} symbols")
+            return stock_data
             
         except Exception as e:
             self.logger.error(f"Error fetching stock data: {str(e)}")
-            raise
-
+            self.logger.error(traceback.format_exc())
+            return {}
+    
     def fetch_multiple_stocks(
         self,
         symbols: List[str],

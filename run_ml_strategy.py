@@ -2,7 +2,7 @@
 import logging
 import logging.handlers
 import numpy as np
-from datetime import datetime
+from datetime import datetime, timedelta
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score, precision_score, recall_score, f1_score
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -139,10 +139,15 @@ def main():
         logger.info("Configuring feature engineering...")
         feature_config = FeatureConfig(
             feature_list=[
-                'ma_5', 'ma_10', 'ma_20', 'ma_50',  # Moving averages
-                'rsi',  # RSI
-                'macd',  # MACD
-                'bollinger_bands'  # Bollinger Bands
+                'returns', 'log_returns', 'volume_change',  # Basic features
+                'sma_5', 'sma_10', 'sma_20', 'sma_50',     # SMAs
+                'ema_5', 'ema_10', 'ema_20', 'ema_50',     # EMAs
+                'macd', 'macd_signal', 'macd_hist',        # MACD
+                'bb_upper', 'bb_lower', 'bb_width',        # Bollinger Bands
+                'rsi',                                     # RSI
+                'volatility', 'volatility_ratio',          # Volatility
+                'volume_ma', 'volume_ratio',               # Volume
+                'high_low_ratio', 'close_position'         # Price patterns
             ],
             ma_periods=[5, 10, 20, 50],
             rsi_period=14,
@@ -154,18 +159,15 @@ def main():
 
         # Configure model
         logger.info("Configuring model...")
-        model_config = ModelConfig(
-            model_type=ModelType.LSTM,
-            input_dim=None,  # Will be set dynamically based on features
-            sequence_length=10,
-            lstm_units=[64, 32, 16],
-            dropout_rate=0.3,
-            learning_rate=0.0001,  # Reduced learning rate for more stable training
-            batch_size=32,
-            epochs=1000,  # Set high number of epochs with early stopping
-            optimize_hyperparameters=False,
-            l2_reg=0.01
-        )
+        model_config = {
+            'lstm_units': [64, 32],  # Increased units for better learning
+            'dropout_rate': 0.3,     # Increased dropout to prevent overfitting
+            'learning_rate': 0.001,
+            'batch_size': 32,        # Reduced batch size for better memory management
+            'epochs': 50,            # Reduced epochs for faster training
+            'l2_reg': 0.01,         # Increased regularization
+            'sequence_length': 20    # Reduced sequence length
+        }
         logger.info("Model configuration completed")
 
         # Configure data
@@ -253,7 +255,7 @@ def main():
 
         # Initialize strategy
         logger.info("Initializing strategy...")
-        strategy = MLStrategy(data_config=data_config, model_config=model_config, feature_config=feature_config)
+        strategy = MLStrategy(model_config=model_config, logger=logger)
         logger.info("Strategy initialization completed")
 
         # Fetch data
@@ -282,6 +284,9 @@ def main():
             raise ValueError("Market data (SPY) is not available")
         
         logger.info("Starting model training...")
+        training_duration = timedelta(hours=3)
+        end_time = datetime.now() + training_duration
+        logger.info(f"Starting {training_duration.total_seconds()/3600}-hour training session...")
         strategy.train_model(stock_data=stock_data, market_data={'SPY': stock_data.get('SPY')})
 
         logger.info("Strategy execution completed successfully")
